@@ -6,6 +6,7 @@ using namespace std;
 
 void first()
 {
+    cout << "First:" << endl;
     char array[2][6];
     int k = 0;
     cout << "Array:" << endl;
@@ -21,6 +22,7 @@ void first()
     cout << endl << "+,-,* meet " << k << " times" << endl;
 }
 void second() {
+    cout << "\nSecond:" << endl;
     char str[255] = "Directed by Robert B.Weide";
     cout << str<<endl;
     int i = strchr(str, ' ') - str - 1;
@@ -42,19 +44,59 @@ void second() {
 }
 void third()
 {
-    cout << endl;
-    char array1[] = "#include <iostream>";
-    char array2[] = "int k = 0;";
-    char array3[] = "k = k + 1;" ;
-    char array4[] = "k = k - 1;";
-    char array5[] = "cout >> k;";
-    for (int i = 0; i < strlen(array1); i++) {
-        if (array1[i]==' ' && array1[i+2] == '1')
-
+    cout << "\n\nThird:" << endl;
+    char array[5][100] = { "var = var - 1;" , "var = var + 1;" , "#inclide <iostream>" , "var++;" , "using namespace std;" };
+    cout << "Original arrays: \n";
+    for (int i = 0; i < 5; i++)
+    {
+        cout << array[i] << endl;
     }
-    
+    cout << "\nChanged arrays: \n\n";
+    for (int k = 0; k < 5; k++)
+    {
+        char var1[100] = "";
+        char var2[100] = "";
+        char temp[100] = "";
+        for (int i = 0; i < strlen(array[k]); i++)
+        {
+            if (array[k][i] == '=')
+            {
+                if (array[k][i + 1] == ' ' || array[k][i - 1] == ' ')
+                {
+                    for (int j = i + 2; array[k][j] != ' '; j++)
+                    {
+                        strncat_s(var2, &array[k][j], 1);
+                    }
 
+                    for (int j = i - 2; j >= 0; j--)
+                    {
+                        strncat_s(var1, &array[k][j], 1);
+                    }
 
+                    _strrev(var1);
+
+                    if (strcmp(var1, var2) == 0)
+                    {
+                        if (array[k][i + strlen(var2) + 5] == '1')
+                        {
+                            if (array[k][i + strlen(var2) + 3] == '+')
+                            {
+                                strcat_s(temp, var1);
+                                strcat_s(temp, "++;");
+                                cout << array[k] << " => " << temp << endl;
+                            }
+                            else if (array[k][i + strlen(var2) + 3] == '-')
+                            {
+                                strcat_s(temp, var1);
+                                strcat_s(temp, "--;");
+                                cout << array[k] << " => " << temp << endl;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
 int main()
 {
@@ -62,5 +104,4 @@ int main()
     first();
     second();
     third();
-
 }
